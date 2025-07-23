@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Solar System Explorer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background-color: black;
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      color: white;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .page {
+      display: none;
+      height: 100vh;
+      padding: 60px 20px;
+      box-sizing: border-box;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .nav-button {
+      position: absolute;
+      top: 20px;
+      padding: 10px 20px;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .nav-button:hover {
+      background-color: #e65100;
+    }
+
+    .left-btn {
+      left: 20px;
+    }
+
+    .right-btn {
+      right: 20px;
+    }
+
+    .content {
+      margin-top: 80px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+
+    textarea {
+      font-size: 16px;
+      padding: 10px;
+    }
+
+    .solar-wrapper {
+      position: relative;
+      width: 100vw;
+      height: 60vh;
+      margin-top: 20px;
+    }
+
+    .sun {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      background: yellow;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 30px #ff0;
+      z-index: 10;
+    }
+
+    .planet {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 24px;
+      transform-origin: -100px;
+      animation: orbit 10s linear infinite;
+    }
+
+    .planet:nth-child(2) { transform-origin: -80px; animation-duration: 4s; }
+    .planet:nth-child(3) { transform-origin: -110px; animation-duration: 5s; }
+    .planet:nth-child(4) { transform-origin: -140px; animation-duration: 6s; }
+    .planet:nth-child(5) { transform-origin: -170px; animation-duration: 7s; }
+    .planet:nth-child(6) { transform-origin: -200px; animation-duration: 8s; }
+    .planet:nth-child(7) { transform-origin: -230px; animation-duration: 9s; }
+    .planet:nth-child(8) { transform-origin: -260px; animation-duration: 10s; }
+    .planet:nth-child(9) { transform-origin: -290px; animation-duration: 11s; }
+
+    @keyframes orbit {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .planet-spin {
+      font-size: 100px;
+      animation: spin 6s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_63f518bc71.mp3?filename=space-ambient-124008.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Welcome Page -->
+  <div class="page active" id="page0">
+    <h1>🌞 Welcome to the Solar System</h1>
+    <p class="content">Please enter your name to start exploring the solar system:</p>
+    <input type="text" id="studentName" placeholder="Your Name" style="font-size: 16px; padding: 10px;" />
+    <br><br>
+    <div class="solar-wrapper">
+      <div class="sun"></div>
+      <div class="planet">☄️</div>
+      <div class="planet">🌕</div>
+      <div class="planet">🌍</div>
+      <div class="planet">🔴</div>
+      <div class="planet">🟡</div>
+      <div class="planet">🪐</div>
+      <div class="planet">🔵</div>
+      <div class="planet">🌀</div> <!-- Changed Neptune emoji -->
+    </div>
+    <button class="nav-button right-btn" onclick="startTour()">Start ➡️</button>
+  </div>
+
+  <!-- Planet Pages -->
+  <div class="page" id="page1">
+    <h1>☀️ Sun</h1>
+    <div class="planet-spin">☀️</div>
+    <p class="content">The Sun is a star that gives us heat and light. Scientists study it with missions like NASA's Parker Solar Probe to learn more about solar flares and space weather.</p>
+    <button class="nav-button left-btn" onclick="showPage(0)">⬅️ Back</button>
+    <button class="nav-button right-btn" onclick="showPage(2)">Next ➡️</button>
+  </div>
+  <div class="page" id="page2">
+    <h1>☄️ Mercury</h1>
+    <div class="planet-spin">☄️</div>
+    <p class="content">Mercury is the smallest and closest planet to the Sun. Missions like MESSENGER and BepiColombo help scientists understand its surface and temperature changes.</p>
+    <button class="nav-button left-btn" onclick="showPage(1)">⬅️ Back</button>
+    <button class="nav-button right-btn" onclick="showPage(3)">Next ➡️</button>
+  </div>
+  <div class="page" id="page3">
+    <h1>🌕 Venus</h1>
+    <div class="planet-spin">🌕</div>
+    <p class="content">Venus is covered with thick clouds and is very hot. Probes like Magellan and future Indian missions study its surface and atmosphere.</p>
+    <button class="nav-button left-btn" onclick="showPage(2)">⬅️ Back</button>
+    <button class="nav-button right-btn" onclick="showPage(4)">Next ➡️</button>
+  </div>
+  <div class="page" id="page4">
+    <h1>🌍 Earth</h1>
+    <div class="planet-spin">🌍</div>
+    <p class="content">Earth is our home and the only planet known to support life. Satellites monitor its weather, climate, and environment to help protect the planet.</p>
+    <button class="nav-button left-btn" onclick="showPage(3)">⬅️ Back</button>
+    <button class="nav-button right-btn" onclick="showPage(5)">Next ➡️</button>
+  </div>
+  <div class="page" id="page5">
+    <h1>🔴 Mars</h1>
+    <div class="planet-spin">🔴</div>
+    <p class="content">Mars is known as the Red Planet. India's Mangalyaan mission made history by being the first to reach Mars in its first attempt. Scientists explore Mars for signs of past life.</p>
+    <button class="nav-button left-btn" onclick="showPage(4)">⬅️ Back</button>
+    <button class="nav-button right-btn" onclick="showPage(6)">Next ➡️</button>
+  </div>
+  <div class="page" id="page6">
+    <h1>🟡 Jupiter</h1>
+    <div class="planet-spin">🟡</div>
+    <p class="content">Jupiter is the biggest planet in our solar system. NASA's Juno mission studies its storms and huge magnetic field.</p>
+    <button class="nav-button left-btn" onclick="showPage(5)">⬅️ Back</button>
+    <button class="nav-button right-btn" onclick="showPage(7)">Next ➡️</button>
+  </div>
+  <div class="page" id="page7">
+    <h1>🪐 Saturn</h1>
+    <div class="planet-spin">🪐</div>
+    <p class="content">Saturn is famous for its rings. The Cassini spacecraft gave us amazing pictures and data about Saturn and its moons.</p>
+    <button class="nav-button left-btn" onclick="showPage(6)">⬅️ Back</button>
+    <button class="nav-button right-btn" onclick="showPage(8)">Next ➡️</button>
+  </div>
+  <div class="page" id="page8">
+    <h1>🔵 Uranus</h1>
+    <div class="planet-spin">🔵</div>
+    <p class="content">Uranus spins on its side! Scientists use telescopes and Voyager 2 data to study its cold atmosphere and rings.</p>
+    <button class="nav-button left-btn" onclick="showPage(7)">⬅️ Back</button>
+    <button class="nav-button right-btn" onclick="showPage(9)">Next ➡️</button>
+  </div>
+  <div class="page" id="page9">
+    <h1>🌀 Neptune</h1>
+    <div class="planet-spin">🌀</div>
+    <p class="content">Neptune is far away and very windy. It was studied by Voyager 2 and observed using large telescopes to understand its weather and structure.</p>
+    <button class="nav-button left-btn" onclick="showPage(8)">⬅️ Back</button>
+    <button class="nav-button right-btn" onclick="showPage(10)">Next ➡️</button>
+  </div>
+
+  <!-- Feedback -->
+  <div class="page" id="page10">
+    <h1>📝 Feedback</h1>
+    <p class="content">Tell us what you learned or liked about the solar system tour!</p>
+    <textarea rows="6" cols="50" placeholder="Write your feedback here..."></textarea>
+    <br><br>
+    <button class="nav-button left-btn" onclick="showPage(9)">⬅️ Back</button>
+    <button class="nav-button right-btn" onclick="showPage(11)">Next ➡️</button>
+  </div>
+
+  <!-- Credits -->
+  <div class="page" id="page11">
+    <h1>✨ The End</h1>
+    <p class="content">Website made by <strong>Vishwaraj Jadhav</strong>. Hope you enjoyed the journey through our solar system! 🚀</p>
+    <button class="nav-button left-btn" onclick="showPage(10)">⬅️ Back</button>
+  </div>
+
+  <script>
+    function showPage(num) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page' + num).classList.add('active');
+    }
+
+    function startTour() {
+      const name = document.getElementById("studentName").value.trim();
+      if (!name) {
+        alert("Please enter your name before continuing.");
+        return;
+      }
+      showPage(1);
+    }
+  </script>
+</body>
+</html>
